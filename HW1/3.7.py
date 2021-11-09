@@ -2,28 +2,30 @@ import numpy as np
 from matplotlib.pyplot import imshow
 import matplotlib.pyplot as plt
 import random
-import time
 from matplotlib import colors
+from scipy.stats import linregress
 
 firePosition = []
 newFirePosition = []
-
-N = 16
+N = 256
 forrest = np.zeros((N,N))
-treeGrowthProbability = 0.1
-lightningProbability= 0.5
-loopCount = 0
+treeGrowthProbability = 0.01
+lightningProbability= 0.2
+count = 0
 fireSizes = []
-fig = plt.figure()
+figure, axis = plt.subplots(2)
 
 
-while len(fireSizes) < 5000:
+while count < 5000:
     fireCount = 0
     forrest[( np.random.rand(N,N)<treeGrowthProbability ) & (forrest==0) ] = 1   
-    
     randomXPosition = random.randint(1, N-1)
     randomYPosition = random.randint(1, N-1) 
+
+
     if np.random.rand() < lightningProbability and forrest[randomXPosition,randomYPosition] == 1:
+        
+        
         forrest[randomXPosition,randomYPosition] = 2
         firePosition.append([randomXPosition,randomYPosition])
         while len(firePosition) > 0:
@@ -40,31 +42,48 @@ while len(fireSizes) < 5000:
                 if j > 0 and forrest[i,j-1] == 1:
                     forrest[i,j-1] = 2
                     newFirePosition.append([i,j-1])
-                forrest[i,j] = 3
+                forrest[i,j] = 0
                 fireCount += 1
             firePosition = newFirePosition.copy()
             newFirePosition = []
-        ax = fig.add_subplot(111)
-        colormap = colors.ListedColormap(['black','green','red','red'])
-        norm = colors.BoundaryNorm([-1,0.5,1.5,2.5,3.5], colormap.N)
-        ax.matshow(forrest,cmap=colormap, norm = norm)
-        plt.draw()
-        plt.pause(0.0001)
-        forrest[forrest==3] = 0
-    loopCount += 1
-    print('Number of fires',len(fireSizes))
-    if fireCount > 0:
         fireSizes.append(fireCount)
-        print(fireCount)
-    ax = fig.add_subplot(111)
-    colormap = colors.ListedColormap(['black','green','red'])
-    norm = colors.BoundaryNorm([-1,0.5,1.5,2.5], colormap.N)
-    ax.matshow(forrest,cmap=colormap, norm = norm)
-    plt.draw()
-    plt.pause(0.0001)
+    count += 1
 
-print(fireSizes)
+C = []
+for i in range(len(fireSizes)):
+    C.append((len(fireSizes)-i)/len(fireSizes))
+    fireSizes[i] = fireSizes[i]/(N**2)
+fireSizes.sort()
+Clog = []
+alog = []
+for i in range(len(fireSizes)):
+    Clog.append(np.log10(C[i]))
+    alog.append(np.log10(fireSizes[i]))
+
+new_Clog = []
+new_alog = []
+for i in range(len(fireSizes)):
+    if alog[i] < -1:
+        new_Clog.append(Clog[i])
+        new_alog.append(alog[i])
+
+D = []
+E = []
+k = 0
+slope, intercept, r, p, se = linregress(new_alog,new_Clog)
+alpha = 1-slope
+for i in range(len(fireSizes)):
+    D.append(intercept+alog[i]*slope)
+    E.append((C[i])**(-alpha))
+    E[i] = np.log10(E[i])
 
 
+axis[0].scatter(alog,Clog)
+axis[0].plot(alog,D,'r')
 
-    
+
+axis[1].scatter(alog,Clog)
+axis[1].scatter(alog, E, color='r')
+
+
+plt.show()
