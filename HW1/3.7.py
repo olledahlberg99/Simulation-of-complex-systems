@@ -3,7 +3,7 @@ from matplotlib.pyplot import imshow
 import matplotlib.pyplot as plt
 import random
 from matplotlib import colors
-from scipy.stats import linregress
+#from scipy.stats import linregress
 
 firePosition = []
 newFirePosition = []
@@ -13,14 +13,13 @@ treeGrowthProbability = 0.01
 lightningProbability= 0.2
 count = 0
 fireSizes = []
-figure, axis = plt.subplots(2)
 
 
 while count < 5000:
     fireCount = 0
     forrest[( np.random.rand(N,N)<treeGrowthProbability ) & (forrest==0) ] = 1   
-    randomXPosition = random.randint(1, N-1)
-    randomYPosition = random.randint(1, N-1) 
+    randomXPosition = random.randint(0, N-1)
+    randomYPosition = random.randint(0, N-1) 
 
 
     if np.random.rand() < lightningProbability and forrest[randomXPosition,randomYPosition] == 1:
@@ -33,15 +32,27 @@ while count < 5000:
                 if i < N-1 and forrest[i+1,j] == 1:
                     forrest[i+1,j] = 2
                     newFirePosition.append([i+1,j])
+                elif i == N-1 and forrest[1,j] == 1:
+                    forrest[1,j] = 2
+                    newFirePosition.append([1,j])
                 if i > 0 and forrest[i-1,j] == 1:
                     forrest[i-1,j] = 2
                     newFirePosition.append([i-1,j])
+                elif i == 0 and forrest[N-1,j] == 1:
+                    forrest[N-1,j] = 2
+                    newFirePosition.append([N-1,j])
                 if j < N-1 and forrest[i,j+1] == 1:
                     forrest[i,j+1] = 2
                     newFirePosition.append([i,j+1])
+                elif j == N-1 and forrest[i,1] == 1:
+                    forrest[i,1] = 2
+                    newFirePosition.append([i,1])
                 if j > 0 and forrest[i,j-1] == 1:
                     forrest[i,j-1] = 2
                     newFirePosition.append([i,j-1])
+                elif j == 0 and forrest[i,N-1] == 1:
+                    forrest[i,N-1] = 2
+                    newFirePosition.append([i,N-1])
                 forrest[i,j] = 0
                 fireCount += 1
             firePosition = newFirePosition.copy()
@@ -67,23 +78,23 @@ for i in range(len(fireSizes)):
         new_Clog.append(Clog[i])
         new_alog.append(alog[i])
 
-D = []
-E = []
-k = 0
-slope, intercept, r, p, se = linregress(new_alog,new_Clog)
-alpha = 1-slope
-for i in range(len(fireSizes)):
-    D.append(intercept+alog[i]*slope)
-    E.append((C[i])**(-alpha))
-    E[i] = np.log10(E[i])
+#slope, intercept, r, p, se = linregress(new_alog,new_Clog)
+alpha = 1.15
+#alpha = 1-slope
+print("alpha:", alpha)
+x = []
+xmin = 1
+for i in range(len(Clog)):
+    b = random.uniform(0,1)
+    x.append(xmin*b**(1/(1-alpha)))
+x.sort()
 
+for i in range(len(Clog)):
+    x[i] = x[i]/(N**2)
+    x[i] = np.log10(x[i])
 
-axis[0].scatter(alog,Clog)
-axis[0].plot(alog,D,'r')
-
-
-axis[1].scatter(alog,Clog)
-axis[1].scatter(alog, E, color='r')
-
-
+plt.scatter(alog,Clog)
+plt.scatter(x, Clog)
+plt.xlim([-5,0])
 plt.show()
+

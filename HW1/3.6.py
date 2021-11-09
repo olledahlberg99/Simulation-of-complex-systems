@@ -19,8 +19,8 @@ fireSizes = []
 while count < 5000:
     fireCount = 0
     forrest[( np.random.rand(N,N)<treeGrowthProbability ) & (forrest==0) ] = 1   
-    randomXPosition = random.randint(1, N-1)
-    randomYPosition = random.randint(1, N-1) 
+    randomXPosition = random.randint(0, N-1)
+    randomYPosition = random.randint(0, N-1) 
 
 
     if np.random.rand() < lightningProbability and forrest[randomXPosition,randomYPosition] == 1:
@@ -33,15 +33,27 @@ while count < 5000:
                 if i < N-1 and forrest[i+1,j] == 1:
                     forrest[i+1,j] = 2
                     newFirePosition.append([i+1,j])
+                elif i == N-1 and forrest[1,j] == 1:
+                    forrest[1,j] = 2
+                    newFirePosition.append([1,j])
                 if i > 0 and forrest[i-1,j] == 1:
                     forrest[i-1,j] = 2
                     newFirePosition.append([i-1,j])
+                elif i == 0 and forrest[N-1,j] == 1:
+                    forrest[N-1,j] = 2
+                    newFirePosition.append([N-1,j])
                 if j < N-1 and forrest[i,j+1] == 1:
                     forrest[i,j+1] = 2
                     newFirePosition.append([i,j+1])
+                elif j == N-1 and forrest[i,1] == 1:
+                    forrest[i,1] = 2
+                    newFirePosition.append([i,1])
                 if j > 0 and forrest[i,j-1] == 1:
                     forrest[i,j-1] = 2
                     newFirePosition.append([i,j-1])
+                elif j == 0 and forrest[i,N-1] == 1:
+                    forrest[i,N-1] = 2
+                    newFirePosition.append([i,N-1])
                 forrest[i,j] = 0
                 fireCount += 1
             firePosition = newFirePosition.copy()
