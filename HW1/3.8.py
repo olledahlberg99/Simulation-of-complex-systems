@@ -20,6 +20,8 @@ for p in range(len(variables)):
     temp_alphaList = []
     for k in range(10):
         count = 0
+        fireCount = []
+        fireSizes = []
         while count < 10000:
             fireCount = 0
             forrest[( np.random.rand(N,N)<treeGrowthProbability ) & (forrest==0) ] = 1   
@@ -79,10 +81,10 @@ for p in range(len(variables)):
         new_Clog = []
         new_alog = []
         for i in range(len(fireSizes)):
-            if alog[i] < -1:
+            if alog[i] < -2:
                 new_Clog.append(Clog[i])
                 new_alog.append(alog[i])
-
+        
         slope, intercept, r, p, se = linregress(new_alog,new_Clog)
         alpha = 1-slope
         temp_alphaList.append(alpha)
