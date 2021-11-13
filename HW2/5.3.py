@@ -22,32 +22,33 @@ x1.append(0)
 x1.append(0)
 x2.append(0)
 x2.append(0)
+W=np.random.randn(timesteps)
 for i in range(2,timesteps+2):
-    x1.append((2+t*(gamma/m))/(1+t*(gamma/m))*x1[i-1]-x1[i-2]/(1+t*(gamma/m))+ np.sqrt(2*kB*temp*gamma)/(m*(1+t*(gamma/m)))*np.power(t,3/2)*np.random.normal(0,1))
-    x2.append(x2[i-1]+np.sqrt((2*kB*temp*t)/gamma)*np.random.normal(0,1))
+    x1.append((2+t*(gamma/m))/(1+t*(gamma/m))*x1[i-1]-x1[i-2]/(1+t*(gamma/m))+ np.sqrt(2*kB*temp*gamma)/(m*(1+t*(gamma/m)))*np.power(t,3/2)*W[i-2])
+    x2.append(x2[i-1]+np.sqrt((2*kB*temp*t)/gamma)*W[i-2])
     x1new.append(x1[i])
     x2new.append(x2[i])
 xaxis = range(timesteps)
-
 
 ax[0].plot(xaxis,x1new, "k--")
 ax[0].plot(xaxis,x2new)
 
 t = 0.01*tau
+
 timesteps = int(100*tau/t)
 x1 = []
 x2 = []
 x1new = []
 x2new = []
 
-
+W=np.random.randn(timesteps)
 x1.append(0)
 x1.append(0)
 x2.append(0)
 x2.append(0)
 for i in range(2,timesteps+2):
-    x1.append((2+t*(gamma/m))/(1+t*(gamma/m))*x1[i-1]-x1[i-2]/(1+t*(gamma/m))+ np.sqrt(2*kB*temp*gamma)/(m*(1+t*(gamma/m)))*np.power(t,3/2)*np.random.normal(0,1))
-    x2.append(x2[i-1]+np.sqrt((2*kB*temp*t)/gamma)*np.random.normal(0,1))
+    x1.append((2+t*(gamma/m))/(1+t*(gamma/m))*x1[i-1]-x1[i-2]/(1+t*(gamma/m))+ np.sqrt(2*kB*temp*gamma)/(m*(1+t*(gamma/m)))*np.power(t,3/2)*W[i-2])
+    x2.append(x2[i-1]+np.sqrt((2*kB*temp*t)/gamma)*W[i-2])
     x1new.append(x1[i])
     x2new.append(x2[i])
 xaxis = range(timesteps)

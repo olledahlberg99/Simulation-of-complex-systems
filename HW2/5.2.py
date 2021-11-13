@@ -47,14 +47,15 @@ for j in range(t1Steps):
     for i in range(numberOfRuns):
         mean += (bigList1[i][j]-bigList1[i][0])**2
     mean1.append(mean/numberOfRuns)
-print(mean1)
+
 
 mean2 = []
 for j in range(t2Steps):
     mean = 0
     for i in range(numberOfRuns):
-        mean += (bigList1[i][j]-bigList1[i][0])**2
+        mean += (bigList2[i][j]-bigList2[i][0])**2
     mean2.append(mean/numberOfRuns)
+
 
 
 mean3 = []
