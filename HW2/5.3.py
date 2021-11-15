@@ -28,7 +28,9 @@ for i in range(2,timesteps+2):
     x2.append(x2[i-1]+np.sqrt((2*kB*temp*t)/gamma)*W[i-2])
     x1new.append(x1[i])
     x2new.append(x2[i])
-xaxis = range(timesteps)
+xaxis = []
+for i in range(timesteps):
+    xaxis.append(i*0.01)
 
 ax[0].plot(xaxis,x1new, "k--")
 ax[0].plot(xaxis,x2new)
@@ -51,8 +53,9 @@ for i in range(2,timesteps+2):
     x2.append(x2[i-1]+np.sqrt((2*kB*temp*t)/gamma)*W[i-2])
     x1new.append(x1[i])
     x2new.append(x2[i])
-xaxis = range(timesteps)
-
+xaxis = []
+for i in range(timesteps):
+    xaxis.append(i*0.01)
 
 ax[1].plot(xaxis,x1new, "k--")
 ax[1].plot(xaxis,x2new)

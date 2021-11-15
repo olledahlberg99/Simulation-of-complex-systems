@@ -26,6 +26,8 @@ x2.append(0)
 x2.append(0)
 
 for j in range(numberOfParticles):
+    # x1 = [0,0]
+    # x2 = [0,0]
     x1 = []
     x2 = []
     x1new = []
