@@ -34,5 +34,3 @@ for i in range(1,timesteps):
     mean += (x[i]-x[0])**2
 
 print(mean/timesteps)
-
-

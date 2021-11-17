@@ -36,7 +36,7 @@ for j in range(numberOfRuns):
 numberList1 = np.linspace(0,5,num=t1Steps)
 numberList2 = np.linspace(0,5,num=t2Steps)
 numberList3 = np.linspace(0,5,num=t3Steps)
-for i in range(numberOfRuns):
+for i in range(50):
     ax[0,0].plot(numberList1, bigList1[i], linewidth = 0.1, color = "b")
     ax[0,1].plot(numberList2, bigList2[i], linewidth = 0.1, color = "g")
     ax[0,2].plot(numberList3, bigList3[i], linewidth = 0.1, color = "r")

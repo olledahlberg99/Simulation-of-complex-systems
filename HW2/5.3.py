@@ -40,8 +40,8 @@ t = 0.01*tau
 timesteps = int(100*tau/t)
 x1 = []
 x2 = []
-x1new = []
 x2new = []
+x1new = []
 
 W=np.random.randn(timesteps)
 x1.append(0)
@@ -92,7 +92,6 @@ for j in range(timesteps):
     for i in range(numberOfParticles):
         tempmean1 += (bigList1[i][j]-bigList1[i][0])**2
         tempmean2 += (bigList2[i][j]-bigList2[i][0])**2
-        print(bigList1[i][0])
     mean1.append(tempmean1/numberOfParticles)    
     mean2.append(tempmean2/numberOfParticles)
 
