@@ -2,6 +2,7 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 
+plt.ion()
 numberOfIndividuals = 1000
 numberOfLoops = 1000
 d = 0.8
@@ -66,11 +67,22 @@ for k in range(numberOfLoops):
             StatusList[1][k] += 1
         if individualStatus[i] == 3:
             StatusList[2][k] += 1
-      
+    plt.clf()
+    for i in range(numberOfIndividuals):
+        if individualStatus[i] == 1:
+            plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "b")
+        if individualStatus[i] == 2:
+            plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "r")
+        if individualStatus[i] == 3:
+            plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "g")
+    plt.show()
+    plt.pause(0.001)
     
-plt.plot(range(numberOfLoops), StatusList[0][:], "b")
-plt.plot(range(numberOfLoops), StatusList[1][:], "r")
-plt.plot(range(numberOfLoops), StatusList[2][:], "g")
-plt.show()
+# plt.plot(range(numberOfLoops), StatusList[0][:], "b")
+# plt.plot(range(numberOfLoops), StatusList[1][:], "r")
+# plt.plot(range(numberOfLoops), StatusList[2][:], "g")
+# plt.show()
 
-print(StatusList)
+# print(StatusList)
+
+    

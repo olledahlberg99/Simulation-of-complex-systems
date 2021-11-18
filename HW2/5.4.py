@@ -18,13 +18,16 @@ N = int(1e5)
 
 x = np.zeros(N)    # Initiated trajectory array x
 y = np.zeros(N)    # Initiated trajectory array y
-
+x = []
+y = []
+x.append(0)
+y.append(0)
 Wx=np.random.randn(N)  # Gaussian distributed random numbers 
 Wy=np.random.randn(N)  # Gaussian distributed random numbers 
 
 for i in range(N-1):
-    x[i+1] = x[i] - kx*x[i]*t/gamma + np.sqrt(2*kB*temp*t/gamma)*Wx[i]     # Overdamped Langevin equation x
-    y[i+1] = y[i] - ky*y[i]*t/gamma + np.sqrt(2*kB*temp*t/gamma)*Wy[i]      # Overdamped Langevin equation y 
+    x.append((x[i] - kx*x[i]*t/gamma + np.sqrt(2*kB*temp*t/gamma)*Wx[i]))     # Overdamped Langevin equation x
+    y.append((y[i] - ky*y[i]*t/gamma + np.sqrt(2*kB*temp*t/gamma)*Wy[i]))      # Overdamped Langevin equation y 
 
 avgxList = []
 avgyList = []
@@ -66,12 +69,14 @@ ax[2].set_xlim([0,0.3])
 
 
 
+x = np.array(x)
+y = np.array(y)
 
 
+plotx = x*1e9
+ploty = y*1e9
 
-
-
-ax[0].plot(x*1e9,y*1e9,'.',markersize=0.6)
+ax[0].plot(plotx,ploty,'.',markersize=0.6)
 
 
 
@@ -97,7 +102,7 @@ ax[1].plot(a,b,"k--")
 
 a = 0
 g = []
-b = [1,2,3,5,10]
+b = [0.1,1,2,5,10]
 for j in b:
     a = 0
     x = []
@@ -116,6 +121,8 @@ xaxis = np.linspace(0.1,10,N)
 for i in range(N):
     v.append(1e14*kB*temp/xaxis[i])
 ax[3].plot(xaxis,v)
+ax[3].set_xscale("log")
+ax[3].set_yscale("log")
 
 
 
