@@ -3,10 +3,10 @@ import random
 import matplotlib.pyplot as plt
 
 numberOfIndividuals = 1000
-numberOfLoops = 10000
+numberOfLoops = 3000
 d = 0.8
 initialInfectionRate = 0.01
-gamma = 0.01
+gamma = 0.001
 maxX = maxY = 100
 beta = 0.4
 alpha = 0.01

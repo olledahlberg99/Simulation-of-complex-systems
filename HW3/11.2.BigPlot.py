@@ -88,7 +88,10 @@ for bg in range(len(BG)):
     print(bgList)
     betaList.append(bgList)
 
-print(betaList)
-plt.imshow(betaList)
+print(bigList)
+plt.imshow(bigList,aspect='auto', extent = [min(Beta), max(Beta), min(BG), max(BG)])
+plt.xlabel("Beta")
+plt.ylabel("beta/gamma")
+plt.title("R inf")
 plt.colorbar()
 plt.show()

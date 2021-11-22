@@ -7,15 +7,18 @@ numberOfLoops = 1000
 d = 0.8
 initialInfectionRate = 0.01
 beta = 0.4
-maxX = maxY = 100   
-Gamma = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-Mu = [1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1]
-iterations = 5
+maxX = maxY = 100 
+Gamma = np.linspace(0.01,0.05,10)  
+#Gamma = [0.001,0.002,0.005,0.01,0.02,0.05,0.1,0.2,0.5]
+#Gamma = np.linspace(0.01, 0,1,10)
+#Mu = np.linspace(0.5,0.01,10)
+#Mu = [0.001,0.002,0.005,0.01,0.02,0.05,0.1,0.2,0.5]
+Mu = np.linspace(0.2,0.01,10)
+#Mu = [0.5,0.2,0.1,0.05,0.02,0.01,0.005,0.002,0.001]
+#Mu = [0.5,0.2,0.1,0.05,0.02,0.01,0.4,0.3,0.2,0.1]
+iterations = 3
 #1 = suceptible, 2 = infected, 3 = recovered
-individualPosition = []
-individualStatus = []
 bigList = []
-StatusList = np.zeros((3,numberOfLoops))
 for m in range(len(Mu)):
     deadList = []
     for b in range(len(Gamma)):
@@ -23,6 +26,9 @@ for m in range(len(Mu)):
         mu = Mu[m]
         gamma = Gamma[b]
         for a in range(iterations):
+            individualPosition = []
+            individualStatus = []
+            StatusList = np.zeros((3,numberOfLoops))
             for i in range(numberOfIndividuals):
                 individualPosition.append([random.randint(0,maxX), random.randint(0,maxY)])
                 individualStatus.append(1)
@@ -67,7 +73,7 @@ for m in range(len(Mu)):
                                     individualStatus[j] = 2
                         if random.random() < gamma:
                             individualStatus[i] = 3
-                        if random.random() < mu:
+                        elif random.random() < mu:
                             individualStatus[i] = 4
             
             NumberOfDead = 0
@@ -80,6 +86,9 @@ for m in range(len(Mu)):
     bigList.append(deadList)
 
 print(bigList)
-plt.imshow(bigList)
+plt.imshow(bigList,aspect='auto', extent = [min(Gamma), max(Gamma), min(Mu), max(Mu)])
+plt.xlabel("Gamma")
+plt.ylabel("Mu")
+plt.title("D inf")
 plt.colorbar()
 plt.show()
