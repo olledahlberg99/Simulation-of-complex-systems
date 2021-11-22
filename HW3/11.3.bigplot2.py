@@ -2,35 +2,27 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 
-
 numberOfIndividuals = 1000
 numberOfLoops = 1000
 d = 0.8
 initialInfectionRate = 0.01
-gamma = 0.01
-maxX = maxY = 100
 beta = 0.4
+maxX = maxY = 100   
+Gamma = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
+Mu = [1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1]
 iterations = 5
 #1 = suceptible, 2 = infected, 3 = recovered
 individualPosition = []
 individualStatus = []
+bigList = []
 StatusList = np.zeros((3,numberOfLoops))
-Beta = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-BG = [80,70,60,50,40,30,20,10]
-
-betaList = []
-for bg in range(len(BG)):
-    bgList = []
-    for b in range(len(Beta)):
+for m in range(len(Mu)):
+    deadList = []
+    for b in range(len(Gamma)):
         it = 0
+        mu = Mu[m]
+        gamma = Gamma[b]
         for a in range(iterations):
-            beta = Beta[b]
-            gamma = 1/(BG[bg]/beta)
-            individualPosition = []
-            individualStatus = []
-            StatusList = np.zeros((3,numberOfLoops))
-
-
             for i in range(numberOfIndividuals):
                 individualPosition.append([random.randint(0,maxX), random.randint(0,maxY)])
                 individualStatus.append(1)
@@ -75,20 +67,19 @@ for bg in range(len(BG)):
                                     individualStatus[j] = 2
                         if random.random() < gamma:
                             individualStatus[i] = 3
-                
-                for i in range(numberOfIndividuals):
-                    if individualStatus[i] == 1:
-                        StatusList[0][k] += 1
-                    if individualStatus[i] == 2:
-                        StatusList[1][k] += 1
-                    if individualStatus[i] == 3:
-                        StatusList[2][k] += 1
-            it += StatusList[2][numberOfLoops-1]
-        bgList.append(it/iterations)
-    print(bgList)
-    betaList.append(bgList)
+                        if random.random() < mu:
+                            individualStatus[i] = 4
+            
+            NumberOfDead = 0
+            for i in range(numberOfIndividuals):
+                if individualStatus[i] == 4:
+                    NumberOfDead += 1
+            it += NumberOfDead
+        deadList.append(it/iterations)
+    print(deadList)
+    bigList.append(deadList)
 
-print(betaList)
-plt.imshow(betaList)
+print(bigList)
+plt.imshow(bigList)
 plt.colorbar()
 plt.show()

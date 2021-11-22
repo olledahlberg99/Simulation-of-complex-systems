@@ -68,3 +68,5 @@ for i in range(numberOfIndividuals):
     if individualStatus[i] == 4:
         NumberOfDead += 1
 print(NumberOfDead)
+
+
