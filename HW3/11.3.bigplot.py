@@ -8,9 +8,11 @@ d = 0.8
 initialInfectionRate = 0.01
 gamma = 0.01
 maxX = maxY = 100   
-Beta = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-Mu = [0.5,0.2,0.1,0.05,0.02,0.01,0.005,0.002,0.001]
-iterations = 3
+Beta = np.linspace(0.01,1,100)
+#Beta = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
+Mu = np.linspace(0.2,0.01,100)
+#Mu = [0.5,0.2,0.1,0.05,0.02,0.01,0.005,0.002,0.001]
+iterations = 5
 #1 = suceptible, 2 = infected, 3 = recovered
 bigList = []
 

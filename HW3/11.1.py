@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 numberOfIndividuals = 1000
 numberOfLoops = 1000
 d = 0.8
-initialInfectionRate = 0.03
+initialInfectionRate = 0.01
 gamma = 0.01
 maxX = maxY = 100
-beta = 0.4
+beta = 0.6
 #1 = suceptible, 2 = infected, 3 = recovered
 individualPosition = []
 individualStatus = []
@@ -68,13 +68,13 @@ for k in range(numberOfLoops):
         if individualStatus[i] == 3:
             StatusList[2][k] += 1
     # plt.clf()
-    for i in range(numberOfIndividuals):
-        if individualStatus[i] == 1:
-            plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "b")
-        if individualStatus[i] == 2:
-            plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "r")
-        if individualStatus[i] == 3:
-            plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "g")
+    # for i in range(numberOfIndividuals):
+    #     if individualStatus[i] == 1:
+    #         plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "b")
+    #     if individualStatus[i] == 2:
+    #         plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "r")
+    #     if individualStatus[i] == 3:
+    #         plt.scatter(individualPosition[i][0],individualPosition[i][1], color = "g")
     # plt.show()
     # plt.pause(0.001)
     

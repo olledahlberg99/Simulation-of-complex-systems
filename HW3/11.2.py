@@ -10,7 +10,7 @@ gamma = 0.01
 maxX = maxY = 100
 #1 = suceptible, 2 = infected, 3 = recovered
 recoveredList1 = []
-Beta = np.linspace(0.1,1,10)
+Beta = np.linspace(0.1,1,40)
 for beta in Beta:
     individualPosition = []
     individualStatus = []
@@ -78,7 +78,7 @@ maxX = maxY = 100
 #1 = suceptible, 2 = infected, 3 = recovered
 
 recoveredList2 = []
-Beta = np.linspace(0.1,1,10)
+Beta = np.linspace(0.1,1,40)
 for beta in Beta:
     individualPosition = []
     individualStatus = []
@@ -135,6 +135,6 @@ for beta in Beta:
     recoveredList2.append(NumberOfRecovered)
     print(NumberOfRecovered)
 
-plt.plot(Beta, recoveredList1)
-plt.plot(Beta, recoveredList2)
+plt.scatter(Beta, recoveredList1)
+plt.scatter(Beta, recoveredList2)
 plt.show()

@@ -10,7 +10,7 @@ initialInfectionRate = 0.01
 gamma = 0.01
 maxX = maxY = 100
 beta = 0.4
-iterations = 5
+iterations = 3
 #1 = suceptible, 2 = infected, 3 = recovered
 individualPosition = []
 individualStatus = []
@@ -88,8 +88,8 @@ for bg in range(len(BG)):
     print(bgList)
     betaList.append(bgList)
 
-print(bigList)
-plt.imshow(bigList,aspect='auto', extent = [min(Beta), max(Beta), min(BG), max(BG)])
+print(betaList)
+plt.imshow(betaList,aspect='auto', extent = [min(Beta), max(Beta), min(BG), max(BG)])
 plt.xlabel("Beta")
 plt.ylabel("beta/gamma")
 plt.title("R inf")
