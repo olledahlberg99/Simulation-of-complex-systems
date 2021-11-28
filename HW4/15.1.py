@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 
 N = 16
 M = np.zeros((N,N))
-k = 8
+k = 20
 
 for i in range(N):
     for j in range(i+1,N):
-        if random.uniform(0,1) < 0.3:
+        if random.uniform(0,1) < 0.5:
             M[i,j] = 1
             M[j,i] = 1
         else:
@@ -39,24 +39,19 @@ lista = []
 a = random.randint(0,N)
 lista.append(a)
 for i in range(k-1):
-    print(lista)
     temp = lista[i]
     templist = M[:,temp]
-    print(templist)
     index = np.where(templist == 1)
-    print(random.choice(random.choice(index)))
     lista.append(round(random.choice(random.choice(index))))
-print(lista)
+
 
 P = 0
 for i in range(len(lista)-1):
     P += D[lista[i],lista[i+1]]
 
-print("start")
 lista = np.array(lista)
 for k in range(N):
     [index] = np.where(lista == k)
-    print(index)
     for i in range(len(index)-1):
         tempvector = [j for j in range(index[i],index[i+1])]
         lista = np.delete(lista,tempvector)
